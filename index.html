@@ -1,9 +1,13 @@
 <html>
-  <script 
-    src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.12/dayjs.min.js"
-    integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g=="
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky' 'sha384-uNpOX6OpeARZJrKsKYgmpQDajoZVNnrJbGl6Ogpcwf5OKvGDa/2yRjzyhJUMjG/Q' 'strict-dynamic'; style-src 'sha384-X5AMau1M1NHh/jP8SXlFDZWktdnJLebAkBsr4ZK9tPGMS2qohPlWPe/j6PtRYl8j' 'self'"
+  />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/dayjs.min.js"
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
+    integrity="sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky"
   ></script>
   <style>
     body {
@@ -30,16 +34,32 @@
   </style>
   <body>
     <section>
-      <p>90 days from now is</p>
+      <div>
+        <input type="number" id="daysInput" value="180" min="1" /> <button id="calculateButton">Calculate</button>
+      </div>
+
+      <p>days from now is</p>
       <p id="date"></p>
     </section>
 
     <script>
       const dateElement = document.getElementById("date");
+      const daysInput = document.getElementById("daysInput");
+      const calculateButton = document.getElementById("calculateButton");
 
-      const result = dayjs().add(90, "day").format("DD MMM YYYY");
+      const calculate = () => {
+        const days = parseInt(daysInput.value);
+        const result = dayjs().add(days, "day").format("DD MMM YYYY");
+        dateElement.innerText = result;
+      };
 
-      dateElement.innerText = result;
+      calculateButton.addEventListener("click", () => {
+        calculate();
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        calculate();
+      });
     </script>
   </body>
 </html>
